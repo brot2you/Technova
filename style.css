@@ -14,3 +14,19 @@
 .hero .zone.robot{left:8%;top:18%}.hero .zone.smart{left:63%;top:18%}.hero .zone.energy{left:5%;top:44%}.hero .zone.cyber{left:64%;top:42%}.hero .zone.maker{left:19%;top:64%}.hero .zone.eco{left:62%;top:64%}
 @media(max-width:850px){.hero{min-height:0;padding:0}.hero .hotspots{display:block!important}.hero .hotspots .zone{min-height:0;padding:0}}
 @media(max-width:540px){.hero{min-height:0}.hero .hotspots{grid-template-columns:none}}
+
+/* TECHNOVA V1.3 - boutons compacts superposes sur la carte, sans rectangles vides */
+#home .hero{display:block!important;position:relative!important;aspect-ratio:1536/864!important;width:100%!important;min-height:0!important;padding:0!important;margin:0!important;overflow:hidden!important;border:0!important;background:#071a36!important;border-radius:14px!important}
+#home .hero .city-image{position:relative!important;display:block!important;width:100%!important;height:auto!important;object-fit:contain!important}
+#home .hero .hotspots{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;padding:0!important;pointer-events:none!important}
+#home .hero .hotspots .zone{position:absolute!important;display:flex!important;align-items:center!important;justify-content:center!important;left:auto;top:auto;width:clamp(90px,19%,245px)!important;height:auto!important;min-height:0!important;padding:clamp(4px,.8vw,10px) clamp(5px,1.1vw,14px)!important;margin:0!important;transform:translate(-50%,-50%)!important;border:2px solid #ffffffb8!important;border-radius:100px!important;opacity:1!important;box-shadow:0 4px 14px #00152bd0,inset 0 1px 6px #ffffff55!important;filter:none!important;pointer-events:auto!important;text-shadow:0 1px 3px #0009!important;cursor:pointer!important;transition:none!important;white-space:nowrap!important}
+#home .hero .hotspots .zone span{display:block!important;grid-row:auto!important;font-size:clamp(9px,1.35vw,19px)!important;line-height:1.15!important;font-weight:900!important;color:#fff!important}
+#home .hero .hotspots .zone.robot{left:27%!important;top:31%!important;background:linear-gradient(100deg,#be3a06,#ff8815)!important}
+#home .hero .hotspots .zone.smart{left:79%!important;top:32%!important;background:linear-gradient(100deg,#057143,#10b96e)!important}
+#home .hero .hotspots .zone.energy{left:22%!important;top:54%!important;background:linear-gradient(100deg,#0752bb,#139cff)!important}
+#home .hero .hotspots .zone.cyber{left:80%!important;top:56%!important;background:linear-gradient(100deg,#5611a9,#a12cff)!important}
+#home .hero .hotspots .zone.maker{left:35%!important;top:77%!important;background:linear-gradient(100deg,#a8111c,#fa3a38)!important}
+#home .hero .hotspots .zone.eco{left:78%!important;top:78%!important;background:linear-gradient(100deg,#077744,#15b56b)!important}
+#home .hero .hotspots .zone:hover,#home .hero .hotspots .zone:active{opacity:1!important;filter:none!important;transform:translate(-50%,-50%)!important;box-shadow:0 4px 14px #00152bd0,inset 0 1px 6px #ffffff55!important}
+#home .hero .hotspots .zone:focus-visible{outline:3px solid #ffe66b!important;outline-offset:2px!important}
+@media(max-width:600px){header .brand{font-size:17px}header .brand small{font-size:7px;letter-spacing:1px}#home .hero .hotspots .zone{width:22%!important;padding:4px 2px!important;border-width:1px!important}#home .hero .hotspots .zone span{font-size:clamp(7px,2vw,11px)!important;letter-spacing:-.25px!important}#home .hero{border-radius:8px!important}}

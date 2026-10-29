@@ -1,0 +1,17 @@
+/* TECHNOVA Robot Factory — illustrated character integration */
+.robot-stage{isolation:isolate}
+.robot-visual{width:min(310px,55%);height:min(325px,95%);display:grid;place-items:center;position:relative;z-index:5;transform-origin:50% 78%;transition:transform .45s ease,filter .35s ease}
+.robot-css-fallback{position:absolute;left:50%;top:50%;width:145px;height:245px;transform:translate(-50%,-50%)}
+.robot-art{display:block;position:relative;z-index:3;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 11px #0008);pointer-events:none}
+.robot-visual.illustration-ready .robot-css-fallback{display:none}
+.robot-visual:not(.illustration-ready) .robot-eye-glow{display:none}
+.robot-eye-glow{position:absolute;z-index:2;left:0;top:0;width:100%;height:100%;pointer-events:none}
+.robot-eye-glow i{position:absolute;top:22%;width:12%;height:13%;border-radius:50%;background:#1bcbef;box-shadow:0 0 20px 9px #0dd7ff,0 0 40px 13px #0dd7ff77;transition:background .25s,box-shadow .25s}
+.robot-eye-glow i:first-child{left:43%}
+.robot-eye-glow i:last-child{left:60%}
+.robot-visual.illustration-ready.success .robot-eye-glow i{background:#5aff88;box-shadow:0 0 22px 10px #48ff83,0 0 44px 17px #25ff6777}
+.robot-visual.illustration-ready.success .robot-art{filter:drop-shadow(0 0 18px #45ff8180) drop-shadow(0 12px 11px #0008)}
+.robot-visual.testing{transform:translateX(min(28px,6vw))}
+.robot-visual.illustration-ready.success{transform:translateY(-7px) scale(1.025)}
+@media(max-width:600px){.robot-visual{width:min(235px,60%);height:225px}.robot-eye-glow i{top:22%}}
+@media(prefers-reduced-motion:reduce){.robot-visual,.robot-eye-glow i{transition:none}}

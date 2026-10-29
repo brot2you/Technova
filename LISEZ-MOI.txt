@@ -1,0 +1,23 @@
+TECHNOVA V1 — Le laboratoire des inventeurs
+
+INSTALLATION GITHUB PAGES
+1. Décompresser TECHNOVA-V1.zip.
+2. Déposer index.html, style.css, script.js et le dossier assets à la racine du dépôt GitHub.
+3. Dans Settings > Pages, choisir Deploy from a branch, branche main, dossier /(root).
+4. Attendre la publication puis ouvrir l'adresse GitHub Pages du dépôt.
+
+CONTENU
+- Carte d'accueil HD et six quartiers sélectionnables.
+- Choix du niveau 5e / 4e / 3e.
+- Mission SOS Robot en quatre étapes : observer, diagnostiquer, programmer, tester.
+- Récompense, atelier, carnet de compétences et sauvegarde locale avec export/import.
+- Fonctionne sans compte, sans serveur et sans bibliothèque externe.
+
+LIMITES V1
+- Seule la mission SOS Robot est jouable, les autres quartiers sont des entrées de découverte.
+- Le niveau scolaire est enregistré, mais la mission pilote est identique pour tous les niveaux.
+- La simulation est pédagogique et simplifiée : elle ne représente pas un moteur physique complet.
+- Les indicateurs de compétences sont des marqueurs d'activité, pas une évaluation officielle.
+
+RÉFÉRENCE
+Programme de technologie du cycle 4, Bulletin officiel n°9 du 29 février 2024.

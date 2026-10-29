@@ -5,3 +5,8 @@
 .smart-scene-actions button:hover,.smart-scene-actions button:focus-visible{background:#0e6c98}
 .visual.energy .smart-scene-actions{display:none}
 @media(max-width:580px){.smart-scene-actions{gap:5px;bottom:7px;left:5px;right:5px}.smart-scene-actions button{font-size:12px;padding:8px;flex:1;min-width:0}}
+
+/* Liens natifs Smart City: fonctionnent meme si le script tarde */
+.smart-scene-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;position:relative;z-index:50;pointer-events:auto;touch-action:manipulation;text-decoration:none;border:2px solid #9beeff;border-radius:14px;background:#082a50f2;color:#fff;font-weight:900;padding:10px 14px;box-shadow:0 5px 14px #0009}
+.smart-scene-actions a:hover,.smart-scene-actions a:focus-visible{background:#0e6c98}
+@media(max-width:580px){.smart-scene-actions a{font-size:12px;padding:8px;flex:1;min-width:0}}

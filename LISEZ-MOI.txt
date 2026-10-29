@@ -1,0 +1,29 @@
+TECHNOVA — Le laboratoire des inventeurs
+Application de technologie pour le collège (cycle 4). HTML / CSS / JavaScript ES5, sans dépendance, sans compte, sans serveur.
+
+DÉPLOIEMENT (GitHub Pages)
+1. Supprimer TOUS les anciens fichiers du dépôt (style.css, script.js, v3.*, v4.*, robot.css/js, robot-factory.html,
+   premium-visuals.css, unified.*, page-guide.*, academy.css, atelier.css, brevet.css, ancien dossier assets/…).
+2. Déposer le contenu de ce dossier à la racine du dépôt (garder le fichier .nojekyll).
+3. Les anciennes adresses robot.html, v3.html, v3-hd.html et v4.html redirigent automatiquement vers les nouvelles pages.
+
+PAGES
+index.html      carte de la cité (6 quartiers + défis finaux)
+quartier.html   moteur des 23 missions (?q=robot|smart|energy|cyber|maker|eco|defis)
+lecons.html     9 leçons avec question de vérification
+atelier.html    3 projets de conception ouverts (pont, support de téléphone, robot)
+brevet.html     6 dossiers techniques, correction détaillée après validation
+academy.html    progression, carnet de compétences, badges, niveau, sauvegarde
+core.js         sauvegarde unique, catalogue des missions, navigation commune
+
+MODIFIER LE CONTENU
+Les textes des missions, leçons et dossiers sont dans des blocs <script type="application/json"> en bas de
+quartier.html, lecons.html et brevet.html. Les titres des missions sont dans core.js (tableau MISSIONS).
+
+SAUVEGARDE
+Une seule clé localStorage : technova-save. Export / import complet depuis l’Académie.
+Les sauvegardes des anciennes versions ne sont pas reprises (le contenu des missions a changé).
+
+DIFFÉRENCIATION
+5e : coup de pouce disponible tout de suite. 4e : après 1 essai manqué. 3e : après 2 essais manqués.
+Étoiles : 3 = premier coup sans aide, 2 = coup de pouce ou 3 essais maximum, 1 = au-delà.

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#03132b">
+<title>TECHNOVA — Le laboratoire des inventeurs</title>
+<meta name="description" content="Application de technologie pour le collège : six quartiers de missions, des leçons, un atelier de conception et un entraînement au brevet.">
+<link rel="icon" href="./assets/icone-robot.webp">
+<link rel="stylesheet" href="./technova.css">
+<style>
+  body{padding-bottom:0;overflow:hidden;background:#03132b}
+  .map{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .map picture,.map img.city{width:100%;height:100%}
+  .map img.city{object-fit:contain;display:block}
+  .pins{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:min(100vw,177.78vh);height:min(56.25vw,100vh);
+    width:min(100vw,177.78dvh);height:min(56.25vw,100dvh)}
+  .pin{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+    width:clamp(96px,19%,250px);padding:clamp(5px,.8vw,10px) 8px;border:2px solid #ffffffc0;border-radius:999px;color:#fff;text-decoration:none;
+    box-shadow:0 4px 16px #00152bd0,inset 0 1px 6px #ffffff55;text-shadow:0 1px 3px #0009;transition:transform .15s}
+  .pin:hover{transform:translate(-50%,-50%) scale(1.05)}
+  .pin:focus-visible{outline:3px solid #ffe66b;outline-offset:3px}
+  .pin strong{font-size:clamp(10px,1.35vw,19px);font-weight:900;letter-spacing:.02em;white-space:nowrap}
+  .pin small{font-size:clamp(9px,1vw,14px);font-weight:800;color:#fff3c4}
+  .pin.z-robot{left:27%;top:31%;background:linear-gradient(100deg,#be3a06,#ff8815)}
+  .pin.z-smart{left:79%;top:32%;background:linear-gradient(100deg,#057143,#10b96e)}
+  .pin.z-energy{left:22%;top:54%;background:linear-gradient(100deg,#0752bb,#139cff)}
+  .pin.z-cyber{left:80%;top:56%;background:linear-gradient(100deg,#5611a9,#a12cff)}
+  .pin.z-maker{left:35%;top:77%;background:linear-gradient(100deg,#a8111c,#fa3a38)}
+  .pin.z-eco{left:78%;top:78%;background:linear-gradient(100deg,#077744,#15b56b)}
+  .pin.z-defis{left:51%;top:63%;width:clamp(90px,15%,200px);background:linear-gradient(100deg,#7a5a10,#e0a92a);border-color:#ffe9a8}
+  .hud{position:fixed;top:max(12px,env(safe-area-inset-top));right:14px;z-index:5;display:flex;gap:8px;align-items:center}
+  .hud .stars{box-shadow:0 4px 14px #000a}
+  .hud .lvl{font-weight:900;padding:7px 11px;border-radius:12px;background:#0c2f53e6;border:1px solid #3f8cc4;color:#cfefff}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (max-width:700px) and (orientation:portrait){
+    .pins{width:min(100vw,56.25vh);height:min(177.78vw,100vh);width:min(100vw,56.25dvh);height:min(177.78vw,100dvh)}
+    .pin{width:31%;padding:5px 3px}
+    .pin strong{font-size:clamp(10px,3.1vw,14px);letter-spacing:0}
+    .pin small{font-size:clamp(9px,2.6vw,12px)}
+    .pin.z-robot{left:22%;top:31%}.pin.z-smart{left:77%;top:32%}
+    .pin.z-energy{left:21%;top:49.5%}.pin.z-cyber{left:79%;top:50.5%}
+    .pin.z-maker{left:27%;top:68.5%}.pin.z-eco{left:74%;top:69.5%}
+    .pin.z-defis{left:50%;top:59%;width:27%}
+    .pin .pi{display:none}
+  }
+</style>
+</head>
+<body>
+<h1 class="sr">TECHNOVA, le laboratoire des inventeurs</h1>
+<div class="map">
+  <picture>
+    <source media="(max-width:700px) and (orientation:portrait)" srcset="./assets/carte-cite-mobile.webp">
+    <img class="city" src="./assets/carte-cite.webp" alt="La cité futuriste TECHNOVA et ses six quartiers">
+  </picture>
+  <nav class="pins" id="pins" aria-label="Quartiers de TECHNOVA"></nav>
+</div>
+<div class="hud">
+  <button type="button" class="lvl" id="lvl" title="Changer de niveau">Niveau ?</button>
+  <div class="stars" data-tn-stars>★ 0</div>
+</div>
+<script src="./core.js"></script>
+<script>
+(function () {
+  'use strict';
+  var TN = window.TN, pins = TN.$('pins');
+  var i, j, z, liste, s, max;
+  for (i = 0; i < TN.ZONES.length; i++) {
+    z = TN.ZONES[i];
+    liste = TN.missionsDe(z.id);
+    s = 0; max = liste.length * 3;
+    for (j = 0; j < liste.length; j++) { s += TN.missionStars(liste[j].id); }
+    pins.appendChild(TN.el('a', { className: 'pin z-' + z.id, href: './quartier.html?q=' + z.id, 'aria-label': z.nom + ' : ' + s + ' étoiles sur ' + max }, [
+      TN.el('strong', null, [TN.el('span', { className: 'pi', 'aria-hidden': 'true', text: z.icone + ' ' }), z.nom.toUpperCase()]),
+      TN.el('small', { text: '★ ' + s + ' / ' + max })
+    ]));
+  }
+  function lvl() { TN.$('lvl').textContent = TN.get().niveau ? 'Niveau ' + TN.get().niveau : 'Niveau ?'; }
+  TN.$('lvl').addEventListener('click', function () { TN.choisirNiveau(lvl); });
+  lvl();
+  if (!TN.get().niveau) { TN.choisirNiveau(lvl); }
+})();
+</script>
+</body>
+</html>

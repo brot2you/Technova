@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04142c">
+<title>Académie — TECHNOVA</title>
+<link rel="icon" href="./assets/icone-robot.webp">
+<link rel="stylesheet" href="./technova.css">
+</head>
+<body>
+<header class="top">
+  <a class="back" href="./index.html">← La cité</a>
+  <div class="brand">⚙ TECH<b>NOVA</b></div>
+  <div class="stars" data-tn-stars>★ 0</div>
+</header>
+<main>
+<section class="page-head">
+  <h1>🏆 Académie des inventeurs</h1>
+  <p>Ta progression dans toute la cité. Elle est enregistrée sur cet appareil : exporte une sauvegarde pour la retrouver ailleurs.</p>
+  <p class="progress-line" id="rank"></p>
+</section>
+<section class="dash" id="dash" aria-label="Tableau de bord"></section>
+<section class="panel console section">
+  <h2>Ma classe</h2>
+  <div class="level-row" id="levelRow" role="group" aria-label="Choisir sa classe"></div>
+  <p class="small" id="levelHelp" style="margin-top:8px"></p>
+</section>
+<section class="section">
+  <h2>Mes quartiers</h2>
+  <div class="zone-grid" id="zoneGrid"></div>
+</section>
+<section class="section panel console">
+  <h2>Carnet de compétences</h2>
+  <p class="small">Part des étoiles gagnées dans les missions de chaque domaine. C’est un indicateur d’entraînement, pas une note.</p>
+  <div id="skills"></div>
+</section>
+<section class="section">
+  <h2>Ma collection de badges <span class="small" id="badgeCount"></span></h2>
+  <div class="badges" id="badges"></div>
+</section>
+<section class="section panel console">
+  <h2>💾 Ma sauvegarde</h2>
+  <div class="save-row">
+    <button type="button" class="primary" id="exportBtn" style="margin-top:0">⬇ Exporter ma progression</button>
+    <span class="ghost file-btn" style="margin-top:0">⬆ Importer une sauvegarde<input type="file" id="importInput" accept="application/json,.json" aria-label="Importer une sauvegarde"></span>
+    <button type="button" class="ghost" id="resetBtn" style="margin-top:0">Tout effacer</button>
+  </div>
+  <p class="small" id="saveStatus" role="status" aria-live="polite" style="margin-top:10px"></p>
+</section>
+</main>
+<script src="./core.js"></script>
+<script src="./academy.js"></script>
+
+</body>
+</html>

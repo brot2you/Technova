@@ -20,3 +20,5 @@
 .robot-stage .obstacle{width:clamp(65px,13vw,135px);height:auto;right:7%;bottom:35px;font-size:0;filter:none;z-index:6}
 .robot-stage .obstacle img{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 8px 8px #0008)}
 @media(max-width:600px){.robot-stage .obstacle{width:clamp(55px,22vw,95px);right:3%;bottom:28px}}
+
+.intro h1 .robot-page-icon{display:inline-block;width:clamp(64px,7vw,90px);height:clamp(64px,7vw,90px);object-fit:cover;vertical-align:middle;border-radius:20px;margin-right:12px;box-shadow:0 8px 18px #0008}

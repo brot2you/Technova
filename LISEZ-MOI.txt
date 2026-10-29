@@ -1,7 +1,0 @@
-TECHNOVA V1.1 — Correction de la carte interactive
-
-Déposer index.html, style.css, script.js et assets/ à la racine du dépôt GitHub Pages.
-
-Correction : l’illustration d’origine, qui contenait des inscriptions non cliquables, est maintenant uniquement utilisée comme ambiance très floutée. Tous les noms des quartiers sont de vrais boutons HTML indépendants, visibles et cliquables. Les fonctionnalités et la sauvegarde V1 sont conservées.
-
-Pour un futur rendu net, remplacer le fond par une illustration de cité SANS aucun texte ni interface.

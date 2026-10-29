@@ -30,3 +30,14 @@
 #home .hero .hotspots .zone:hover,#home .hero .hotspots .zone:active{opacity:1!important;filter:none!important;transform:translate(-50%,-50%)!important;box-shadow:0 4px 14px #00152bd0,inset 0 1px 6px #ffffff55!important}
 #home .hero .hotspots .zone:focus-visible{outline:3px solid #ffe66b!important;outline-offset:2px!important}
 @media(max-width:600px){header .brand{font-size:17px}header .brand small{font-size:7px;letter-spacing:1px}#home .hero .hotspots .zone{width:22%!important;padding:4px 2px!important;border-width:1px!important}#home .hero .hotspots .zone span{font-size:clamp(7px,2vw,11px)!important;letter-spacing:-.25px!important}#home .hero{border-radius:8px!important}}
+
+/* MODE CARTE SEULE : aucune barre, aucun bloc sous l'illustration */
+body{margin:0!important;background:#03132b!important;overflow:hidden!important}
+body>header,body>footer,#home>.welcome,#home>h2,#home>#districts{display:none!important}
+main{width:100vw!important;height:100dvh!important;max-width:none!important;margin:0!important;padding:0!important;display:block!important}
+#home{display:block!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:0!important}
+#home .hero{width:100vw!important;height:100dvh!important;aspect-ratio:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#03132b!important}
+#home .hero .city-image{width:100%!important;height:100%!important;object-fit:contain!important}
+#home .hero .hotspots{width:min(100vw,177.7778dvh)!important;height:min(56.25vw,100dvh)!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important}
+#missions,#workshop,#skills{display:none!important}
+@media(max-width:600px){#home .hero .hotspots .zone{width:22%!important;min-width:0!important}#home .hero .hotspots .zone span{font-size:clamp(7px,2.1vw,12px)!important}}

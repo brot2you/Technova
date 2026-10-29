@@ -70,3 +70,10 @@ body.map-subpage #home{display:none!important}
 body.map-subpage #missions.active,body.map-subpage #workshop.active,body.map-subpage #skills.active{display:block!important}
 body.map-subpage .view:not(.active){display:none!important}
 @media(max-width:700px) and (orientation:portrait){.map-menu{bottom:max(10px,env(safe-area-inset-bottom));width:calc(100vw - 20px);padding:5px;border-radius:15px}.map-menu button{min-height:50px}.map-menu button .menu-icon{font-size:22px}}
+
+/* V5 : cinquieme acces a l'Academie directement sur la carte */
+.map-menu{grid-template-columns:repeat(5,minmax(0,1fr))!important;width:min(720px,calc(100vw - 20px))!important}
+.map-menu .academy-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:54px;padding:6px 2px;color:#fff0bb;background:linear-gradient(135deg,#725015aa,#473a2baa);border:1px solid #e5b55c;border-radius:12px;font-size:clamp(9px,2.4vw,13px);font-weight:850;line-height:1.1;text-decoration:none;box-shadow:inset 0 0 12px #f9c65b33}
+.map-menu .academy-link .menu-icon{font-size:clamp(20px,5vw,27px);line-height:1}
+.map-menu .academy-link:hover{background:#7a591d}
+@media(max-width:700px) and (orientation:portrait){.map-menu .academy-link{min-height:50px}.map-menu .academy-link .menu-icon{font-size:22px}}

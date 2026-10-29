@@ -83,3 +83,6 @@ body.map-subpage .view:not(.active){display:none!important}
 
 .zone.robot .robot-zone-icon{object-fit:contain;border-radius:0;box-shadow:none;background:none;width:clamp(36px,4vw,54px);height:clamp(36px,4vw,54px)}
 .robot-heading-icon{width:1.5em;height:1.5em;object-fit:contain;vertical-align:middle;margin-right:.2em}
+
+.zone.smart .smart-zone-icon{width:clamp(36px,4vw,54px);height:clamp(36px,4vw,54px);object-fit:contain;vertical-align:middle;flex-shrink:0}
+.zone.smart span{display:inline-flex;align-items:center;justify-content:center;gap:5px}

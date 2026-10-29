@@ -50,3 +50,8 @@ main{position:relative}
 .stat{background:radial-gradient(circle at 85% 5%,#50cfff30,transparent 45%),linear-gradient(145deg,#17466e,#09203d)!important}
 .final-card{background:radial-gradient(circle at 85% 5%,#a9d7ff26,transparent 50%),linear-gradient(135deg,#123f6a,#081e3c)!important}
 @media(prefers-reduced-motion:reduce){.orb,.robot-visual,.scene-icon{animation:none!important;transition:none!important}}
+
+/* FIX interaction V3 : le calque decoratif de .scene ne doit jamais capter les clics. */
+.scene{position:relative}
+.scene::before,.scene::after,.visual::before,.visual::after{pointer-events:none!important}
+.console,.console #task,.console button,.console input,.tabs button,.cards button{position:relative;pointer-events:auto}

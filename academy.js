@@ -1,7 +1,7 @@
 'use strict';
 const $=id=>document.getElementById(id),KEY='technova-academy-v5';
 const districts=[
-{id:'robot',name:'Robot Factory',icon:'🤖',total:5,url:'robot.html',desc:'Observer, assembler, régler, programmer et optimiser.'},
+{id:'robot',name:'🤖 Robot Factory',icon:'🤖',total:5,url:'robot.html',desc:'Observer, assembler, régler, programmer et optimiser.'},
 {id:'smart',name:'🏙 Smart City',icon:'🏙️',total:3,url:'v3-hd.html?zone=smart',desc:'Capteurs, automatismes et régulation.'},
 {id:'energy',name:'⚡ Energy Lab',icon:'⚡',total:3,url:'v3-hd.html?zone=energy',desc:'Conversions, consommation et stockage.'},
 {id:'cyber',name:'🔐 Cyber Zone',icon:'🔐',total:3,url:'v4.html?zone=cyber',desc:'Réseaux, données et cybersécurité.'},

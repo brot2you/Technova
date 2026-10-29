@@ -41,3 +41,18 @@ main{width:100vw!important;height:100dvh!important;max-width:none!important;marg
 #home .hero .hotspots{width:min(100vw,177.7778dvh)!important;height:min(56.25vw,100dvh)!important;left:50%!important;top:50%!important;right:auto!important;bottom:auto!important;transform:translate(-50%,-50%)!important}
 #missions,#workshop,#skills{display:none!important}
 @media(max-width:600px){#home .hero .hotspots .zone{width:22%!important;min-width:0!important}#home .hero .hotspots .zone span{font-size:clamp(7px,2.1vw,12px)!important}}
+
+/* Illustration adaptative : format paysage sur ordinateur, portrait sur smartphone */
+#home .hero .city-picture{position:absolute!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;height:100%!important}
+#home .hero .city-picture .city-image{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important}
+@media(max-width:700px) and (orientation:portrait){
+#home .hero .hotspots{width:min(100vw,56.25dvh)!important;height:min(177.7778vw,100dvh)!important}
+#home .hero .hotspots .zone{width:30%!important;min-width:0!important;padding:6px 2px!important}
+#home .hero .hotspots .zone span{font-size:clamp(9px,3vw,14px)!important;letter-spacing:-.3px!important}
+#home .hero .zone.robot{left:22%!important;top:32%!important}
+#home .hero .zone.smart{left:77%!important;top:33%!important}
+#home .hero .zone.energy{left:21%!important;top:50%!important}
+#home .hero .zone.cyber{left:79%!important;top:51%!important}
+#home .hero .zone.maker{left:27%!important;top:69%!important}
+#home .hero .zone.eco{left:74%!important;top:70%!important}
+}

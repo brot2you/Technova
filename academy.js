@@ -19,7 +19,7 @@ const finals=[
 {title:'🌍 Le campus du futur',desc:'Mobilise les six quartiers pour imaginer un campus plus sûr et plus sobre.',tags:'Tous les quartiers',steps:[
 ['Le campus veut diminuer les trajets motorisés courts. Quelle solution étudier ?',['Un parking plus éloigné sans alternative.','Des itinéraires sûrs pour la marche et le vélo.','Des trajets individuels en voiture obligatoires.'],1,'Les mobilités actives adaptées peuvent réduire les impacts.'],
 ['Pour piloter l’éclairage et les capteurs, quelle organisation est pertinente ?',['Capteurs → traitement des données → actionneurs.','Actionneurs → décorations → capteurs.','Aucun traitement des informations.'],0,'Un système automatisé utilise une chaîne d’information.'],
-['Avant de déployer le système, que doit faire l’équipe ?',['Ignorer les essais.','Ne mesurer que le coût d’achat.','Tester la sécurité, la consommation et la réparabilité.'],2,'L’évaluation d’une solution mobilise plusieurs critères.']]}]};
+['Avant de déployer le système, que doit faire l’équipe ?',['Ignorer les essais.','Ne mesurer que le coût d’achat.','Tester la sécurité, la consommation et la réparabilité.'],2,'L’évaluation d’une solution mobilise plusieurs critères.']]}];
 function parse(key){try{const x=JSON.parse(localStorage.getItem(key)||'{}');return x&&typeof x==='object'?x:{}}catch{return {}}}
 let state=parse(KEY);if(!['5e','4e','3e'].includes(state.grade))state.grade='5e';if(!Array.isArray(state.finals))state.finals=[];state.finals=[...new Set(state.finals.filter(x=>Number.isInteger(x)&&x>=0&&x<3))];let active=0,step=0,correct=false;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}}

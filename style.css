@@ -56,3 +56,17 @@ main{width:100vw!important;height:100dvh!important;max-width:none!important;marg
 #home .hero .zone.maker{left:27%!important;top:69%!important}
 #home .hero .zone.eco{left:74%!important;top:70%!important}
 }
+
+/* Menu HUD : intégré visuellement à la carte, mais vrais boutons HTML */
+.map-menu{position:fixed!important;z-index:12;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;width:min(640px,calc(100vw - 24px));padding:7px;background:linear-gradient(120deg,#06142cf2,#073b65ed);border:2px solid #20c9fa;border-radius:20px;box-shadow:0 0 18px #00c8ff70,inset 0 1px 7px #43cfff55;backdrop-filter:blur(14px)}
+.map-menu button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:54px;padding:6px 2px;color:#e8faff;background:transparent;border:1px solid transparent;border-radius:12px;font-size:clamp(9px,2.4vw,13px);font-weight:800;line-height:1.1;box-shadow:none}
+.map-menu button .menu-icon{font-size:clamp(20px,5vw,27px);line-height:1;color:#4ce9ff}
+.map-menu button[aria-current="page"]{background:linear-gradient(130deg,#0879c8,#034a88);border-color:#49dfff}
+.map-menu button:hover{filter:none;background:#0c5484}
+.map-menu button:focus-visible{outline:2px solid #ffdf55;outline-offset:0}
+body.map-subpage{overflow:auto!important}
+body.map-subpage main{height:auto!important;min-height:100dvh!important;overflow:auto!important;padding:20px 16px 105px!important;max-width:850px!important}
+body.map-subpage #home{display:none!important}
+body.map-subpage #missions.active,body.map-subpage #workshop.active,body.map-subpage #skills.active{display:block!important}
+body.map-subpage .view:not(.active){display:none!important}
+@media(max-width:700px) and (orientation:portrait){.map-menu{bottom:max(10px,env(safe-area-inset-bottom));width:calc(100vw - 20px);padding:5px;border-radius:15px}.map-menu button{min-height:50px}.map-menu button .menu-icon{font-size:22px}}

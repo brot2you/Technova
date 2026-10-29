@@ -28,3 +28,5 @@
 #visual.energy #smartCityImage{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;z-index:10!important;opacity:1!important;visibility:visible!important;pointer-events:none!important}
 #visual.energy::before,#visual.energy::after{display:none!important}
 #visual.energy .skyline,#visual.energy .ground,#visual.energy .scene-icons{display:none!important}
+
+.brevet-link{display:inline-flex;align-items:center;margin:0 0 18px;padding:12px 17px;border-radius:13px;border:1px solid #f6d678;background:linear-gradient(110deg,#75511c,#1e6077);color:#fff3c7;font-weight:900;text-decoration:none;box-shadow:0 5px 18px #0004}.brevet-link:hover{filter:brightness(1.15)}

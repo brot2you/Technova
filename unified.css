@@ -7,3 +7,5 @@ body{padding-bottom:74px}
 @media(max-width:480px){.tn-dock{gap:3px;padding:5px}.tn-dock a{min-height:49px;font-size:9px;padding:4px 1px}.tn-dock a .tn-icon{font-size:20px}}
 
 .tn-dock .tn-robot-icon{width:30px;height:30px;object-fit:contain;display:block;margin:auto}
+
+.tn-dock .tn-smart-icon{width:30px;height:30px;object-fit:contain;display:block;margin:auto}

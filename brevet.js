@@ -102,6 +102,7 @@
     var st = TN.get().brevet;
     var old = st[cur] !== undefined ? st[cur] : -1;
     if (good > old) { st[cur] = good; TN.save(); }
+    TN.sfx(good === 3 ? 'win3' : (good > 0 ? 'ok' : 'fail'));
     var r = $('result');
     r.className = 'feedback ' + (good === 3 ? 'ok' : 'bad');
     r.textContent = 'Score : ' + good + ' / 3. ' + (good === 3 ? 'Dossier maîtrisé.' : 'Lis les corrections, puis recommence le dossier pour vérifier que tu as compris.');

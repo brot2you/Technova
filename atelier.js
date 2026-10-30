@@ -136,11 +136,14 @@
       var rec = st[cur];
       if (!rec || r.score < rec.best - 1e-9) {
         st[cur] = { best: Math.round(r.score * 100) / 100 }; TN.save();
+        TN.sfx(rec ? 'record' : 'win');
         rep.appendChild(el('p', { text: rec ? '🏅 Nouveau record : ' + r.scoreTxt + ' ! Peux-tu faire encore mieux ?' : '🏅 Prototype validé. Défi : trouve ' + p.scoreLabel + '.' }));
       } else {
+        TN.sfx('ok');
         rep.appendChild(el('p', { text: 'Conforme, mais ton record reste meilleur. Défi : ' + p.scoreLabel + '.' }));
       }
     } else {
+      TN.sfx('fail');
       rep.appendChild(el('p', { text: 'Modifie un seul réglage à la fois, puis relance les essais pour voir son effet.' }));
     }
     $('status').textContent = ok ? 'Essais réussis' : 'À améliorer';

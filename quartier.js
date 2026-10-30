@@ -21,6 +21,7 @@
   function stopTimers() {
     for (var i = 0; i < timers.length; i++) { clearTimeout(timers[i]); }
     timers = []; busy = false; gen++;
+    TN.motor(false);
   }
 
   /* ---------- En-tête et onglets ---------- */
@@ -65,6 +66,7 @@
 
   function fail(msg) {
     errors++;
+    TN.sfx('fail');
     feedback(msg, 'bad');
     updateHint();
   }
@@ -87,6 +89,7 @@
   function showHint() {
     var d = DATA[LISTE[cur].id];
     hintUsed = true;
+    TN.sfx('hint');
     var h = $('hintBox');
     h.hidden = false;
     h.textContent = d.hint;
@@ -100,6 +103,8 @@
     var stars = errors === 0 && !hintUsed ? 3 : (errors <= 2 ? 2 : 1);
     if (hintUsed && stars > 2) { stars = 2; }
     var best = TN.setMission(m.id, stars);
+    TN.motor(false);
+    TN.sfx(stars === 3 ? 'win3' : 'win');
     var f = $('feedback');
     f.className = 'feedback ok';
     clear(f);
@@ -194,6 +199,10 @@
   function hud(dist, mot) {
     if (!hudDist) { return; }
     hudDist.textContent = typeof dist === 'number' ? Math.max(0, Math.round(dist)) + ' cm' : dist;
+    if (hudMot.textContent !== mot) {
+      if (mot === 'marche') { TN.motor(true); }
+      else if (hudMot.textContent === 'marche') { TN.motor(false); TN.sfx('brake'); }
+    }
     hudMot.textContent = mot;
     hudMot.className = mot === 'marche' ? 'm-on' : 'm-off';
   }
@@ -218,11 +227,13 @@
     bubbleEl.textContent = '';
     bubbleEl.className = 'bubble';
     robotDraw(START_CM);
+    if (hudMot) { hudMot.textContent = ''; }
+    TN.motor(false);
     hud(START_CM, 'arrêt');
   }
   /* Sur téléphone, la scène est au-dessus des commandes : on la ramène à l’écran pendant l’animation. */
   function showScene() { if (window.innerWidth < 861) { $('scene').scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
-  function bubble(txt, kind) { bubbleEl.textContent = txt; bubbleEl.className = 'bubble show ' + (kind || ''); }
+  function bubble(txt, kind) { TN.motor(false); bubbleEl.textContent = txt; bubbleEl.className = 'bubble show ' + (kind || ''); }
   window.addEventListener('resize', function () { if (robotEl && !busy) { robotDraw(robotPos); } });
 
   /* ---------- Types d’activités ---------- */
@@ -406,6 +417,7 @@
       k++;
       if (k >= d.steps.length) { drawProgress(); win(); return; }
       feedback('Étape ' + k + ' validée. Passe à la suivante.', 'info');
+      TN.sfx('ok');
       show();
     }
     function show() {
@@ -421,7 +433,7 @@
         var b = el('button', { type: 'button', className: 'choice', text: opts[i].t });
         b.addEventListener('click', (function (o, btn) {
           return function () {
-            if (o.ok) { btn.classList.add('right'); feedback(o.fb, 'ok'); later(next, 900); var all = list.querySelectorAll('button'); for (var j = 0; j < all.length; j++) { all[j].disabled = true; } }
+            if (o.ok) { btn.classList.add('right'); TN.sfx('ok'); feedback(o.fb, 'ok'); later(next, 900); var all = list.querySelectorAll('button'); for (var j = 0; j < all.length; j++) { all[j].disabled = true; } }
             else { btn.classList.add('wrong'); btn.disabled = true; fail(o.fb); }
           };
         })(opts[i], b));
@@ -455,7 +467,7 @@
               busy = false;
               var res;
               if (arret <= 0) {
-                robotEl.classList.add('crash'); bubble('💥', 'bad');
+                robotEl.classList.add('crash'); TN.sfx('crash'); bubble('💥', 'bad');
                 res = 'Seuil ' + seuil + ' cm : collision avec le colis.';
                 note(res, false);
                 fail(res + ' L’ordre d’arrêt arrive à ' + seuil + ' cm, mais le robot a besoin de ' + d.freinage + ' cm pour s’immobiliser.');
@@ -525,7 +537,7 @@
           }
           if (close === 'avancer') {
             robotMove(0, 2000, 'lin', function (cm) { hud(stale ? START_CM : cm, 'marche'); }, end(function () {
-              robotEl.classList.add('crash'); bubble('💥', 'bad');
+              robotEl.classList.add('crash'); TN.sfx('crash'); bubble('💥', 'bad');
               fail(stale ? 'Collision : regarde l’écran, la distance mesurée est restée bloquée à 80 cm. Sans nouvelle mesure à chaque tour de boucle, le robot ne voit pas le colis approcher.' : 'Collision : quand le colis est proche, ton programme continue d’avancer.');
             }));
             return;
@@ -586,6 +598,7 @@
           var lux = d.lux[h];
           var on = o === '<' ? lux < s : lux > s;
           cells[h].classList.add(on ? 'on' : 'off');
+          if (on) { TN.sfx('tick'); }
           cells[h].lastChild.textContent = on ? '💡' : '–';
           if (img) { img.src = lux >= 800 ? './assets/eclairage-jour.webp' : './assets/eclairage-nuit.webp'; }
           if (on && lux >= 800) { onDay.push(h); }
@@ -614,6 +627,7 @@
     if (ov) { clear(ov); ov.appendChild(lights); }
     function setLights(st) {
       var car = lights.firstChild, ped = lights.lastChild;
+      TN.sfx('beep');
       car.className = 'light car ' + st.car;
       ped.className = 'light ped ' + st.ped;
     }
@@ -790,7 +804,7 @@
               found++;
               counter.textContent = 'Indices trouvés : ' + found + ' / ' + total;
               notes.appendChild(el('li', { text: s.fb }));
-              if (found === total) { win(); } else { feedback('Bien vu. ' + s.fb, 'ok'); }
+              if (found === total) { win(); } else { TN.sfx('ok'); feedback('Bien vu. ' + s.fb, 'ok'); }
             } else { btn.classList.add('neutral'); btn.disabled = true; fail(s.fb); }
           };
         })(sg, b));

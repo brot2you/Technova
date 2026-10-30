@@ -41,6 +41,12 @@ main{max-width:1180px;margin:0 auto;padding:18px 14px 20px}
 .zone-tab:hover{border-color:var(--c)}
 .zone-tab[aria-current=page]{background:var(--c);border-color:#fff;color:#04142c;box-shadow:0 0 18px var(--c)}
 
+/* Bouton son */
+.top-right{display:flex;align-items:center;gap:8px}
+.sound-btn{width:40px;height:38px;border-radius:12px;border:1px solid var(--line2);background:#0d3157;font-size:18px;line-height:1;display:grid;place-items:center;padding:0}
+.sound-btn:hover{background:#13426f}
+.sound-btn[aria-pressed=false]{opacity:.7;border-style:dashed}
+
 /* Plan de travail */
 .workbench{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:16px;align-items:start;margin-top:8px}
 .panel{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 18px 50px #0007}

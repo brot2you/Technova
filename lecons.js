@@ -50,11 +50,12 @@
           fb.textContent = o.fb;
           if (o.ok) {
             btn.classList.add('right');
+            TN.sfx('win');
             fb.className = 'feedback ok';
             var all = list.querySelectorAll('button');
             for (var j = 0; j < all.length; j++) { all[j].disabled = true; }
             TN.get().lecons[d.id] = 1; TN.save(); cards();
-          } else { btn.classList.add('wrong'); btn.disabled = true; fb.className = 'feedback bad'; }
+          } else { TN.sfx('fail'); btn.classList.add('wrong'); btn.disabled = true; fb.className = 'feedback bad'; }
         };
       })(opts[k], b));
       list.appendChild(b);

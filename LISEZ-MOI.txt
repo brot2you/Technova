@@ -27,3 +27,8 @@ Les sauvegardes des anciennes versions ne sont pas reprises (le contenu des miss
 DIFFÉRENCIATION
 5e : coup de pouce disponible tout de suite. 4e : après 1 essai manqué. 3e : après 2 essais manqués.
 Étoiles : 3 = premier coup sans aide, 2 = coup de pouce ou 3 essais maximum, 1 = au-delà.
+
+SONS
+Les sons sont synthétisés en direct par le navigateur (Web Audio API) : aucun fichier audio.
+Bouton 🔊 / 🔇 en haut à droite de chaque page ; le choix est mémorisé sur l’appareil (clé technova-son).
+Le son démarre au premier geste de l’élève (règle imposée par iOS et Chrome).

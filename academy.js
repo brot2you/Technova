@@ -91,6 +91,7 @@
     var reader = new FileReader();
     reader.onload = function () {
       var err = TN.importText(String(reader.result));
+      TN.sfx(err ? 'fail' : 'win');
       $('saveStatus').textContent = err || 'Sauvegarde importée : ta progression est à jour.';
       input.value = '';
       render();

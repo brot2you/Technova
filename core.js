@@ -237,6 +237,145 @@
     });
   }
 
+
+  /* ---------- Sons (synthétisés avec la Web Audio API : aucun fichier audio) ---------- */
+  var SON_KEY = 'technova-son';
+  var sonOn = true;
+  try { sonOn = window.localStorage.getItem(SON_KEY) !== '0'; } catch (e) { sonOn = true; }
+  var AC = null, master = null, motorNodes = null, lastTick = 0;
+
+  function audio() {
+    if (!sonOn) { return null; }
+    if (!AC) {
+      var C = window.AudioContext || window.webkitAudioContext;
+      if (!C) { return null; }
+      try { AC = new C(); } catch (e) { return null; }
+      master = AC.createGain();
+      master.gain.value = 0.35;
+      master.connect(AC.destination);
+    }
+    if (AC.state === 'suspended' && AC.resume) { AC.resume(); }
+    return AC;
+  }
+  /* iOS et Chrome n’autorisent le son qu’après un premier geste de l’utilisateur. */
+  function unlock() {
+    var a = audio();
+    if (a) {
+      var b = a.createBuffer(1, 1, 22050), src = a.createBufferSource();
+      src.buffer = b; src.connect(master); src.start(0);
+    }
+    document.removeEventListener('touchstart', unlock, true);
+    document.removeEventListener('pointerdown', unlock, true);
+    document.removeEventListener('keydown', unlock, true);
+  }
+  document.addEventListener('touchstart', unlock, true);
+  document.addEventListener('pointerdown', unlock, true);
+  document.addEventListener('keydown', unlock, true);
+
+  function tone(f, t, dur, type, vol, fEnd) {
+    var a = audio(); if (!a) { return; }
+    var o = a.createOscillator(), g = a.createGain(), t0 = a.currentTime + (t || 0);
+    o.type = type || 'sine';
+    o.frequency.setValueAtTime(f, t0);
+    if (fEnd) { o.frequency.exponentialRampToValueAtTime(fEnd, t0 + dur); }
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol || 0.3, t0 + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(master);
+    o.start(t0); o.stop(t0 + dur + 0.05);
+  }
+  function noise(t, dur, vol, freq) {
+    var a = audio(); if (!a) { return; }
+    var len = Math.floor(a.sampleRate * dur), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) { d[i] = (Math.random() * 2 - 1) * (1 - i / len); }
+    var src = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain(), t0 = a.currentTime + (t || 0);
+    src.buffer = buf; f.type = 'lowpass'; f.frequency.value = freq || 1200;
+    g.gain.value = vol || 0.4;
+    src.connect(f); f.connect(g); g.connect(master);
+    src.start(t0);
+  }
+  function arpeggio(notes, step, type, vol, dur) {
+    for (var i = 0; i < notes.length; i++) { tone(notes[i], i * step, dur || 0.22, type || 'triangle', vol || 0.25); }
+  }
+
+  var SFX = {
+    tap: function () { tone(1100, 0, 0.05, 'sine', 0.08); },
+    tick: function () { var n = Date.now(); if (n - lastTick < 55) { return; } lastTick = n; tone(1700, 0, 0.025, 'square', 0.035); },
+    ok: function () { tone(660, 0, 0.12, 'triangle', 0.22); tone(990, 0.09, 0.18, 'triangle', 0.22); },
+    fail: function () { tone(240, 0, 0.16, 'square', 0.09, 200); tone(180, 0.14, 0.24, 'square', 0.09, 140); },
+    hint: function () { tone(1320, 0, 0.5, 'sine', 0.16); tone(1980, 0.06, 0.4, 'sine', 0.07); },
+    win: function () { arpeggio([523, 659, 784, 1047], 0.09, 'triangle', 0.22, 0.28); },
+    win3: function () { arpeggio([523, 659, 784, 1047, 1319], 0.08, 'triangle', 0.22, 0.3); tone(1568, 0.45, 0.6, 'sine', 0.12); tone(2093, 0.52, 0.55, 'sine', 0.07); },
+    record: function () { arpeggio([1047, 1319, 1568, 2093, 2637], 0.06, 'sine', 0.13, 0.3); },
+    beep: function () { tone(880, 0, 0.09, 'square', 0.06); },
+    crash: function () { noise(0, 0.45, 0.55, 900); tone(120, 0, 0.35, 'sine', 0.4, 45); },
+    brake: function () { noise(0, 0.35, 0.12, 2500); }
+  };
+
+  function sfx(name) { if (sonOn && SFX[name]) { try { SFX[name](); } catch (e) { /* audio indisponible */ } } }
+
+  /* Ronronnement du moteur du robot. */
+  function motor(on) {
+    if (!on) {
+      if (motorNodes && AC) {
+        var t = AC.currentTime;
+        motorNodes.g.gain.cancelScheduledValues(t);
+        motorNodes.g.gain.setValueAtTime(motorNodes.g.gain.value, t);
+        motorNodes.g.gain.linearRampToValueAtTime(0.0001, t + 0.15);
+        motorNodes.o.stop(t + 0.2);
+        motorNodes = null;
+      }
+      return;
+    }
+    if (motorNodes) { return; }
+    var a = audio(); if (!a) { return; }
+    var o = a.createOscillator(), f = a.createBiquadFilter(), g = a.createGain();
+    o.type = 'sawtooth'; o.frequency.value = 72;
+    f.type = 'lowpass'; f.frequency.value = 420;
+    g.gain.setValueAtTime(0.0001, a.currentTime);
+    g.gain.linearRampToValueAtTime(0.09, a.currentTime + 0.12);
+    o.connect(f); f.connect(g); g.connect(master);
+    o.start();
+    motorNodes = { o: o, g: g };
+  }
+
+  function setSon(on) {
+    sonOn = on;
+    try { window.localStorage.setItem(SON_KEY, on ? '1' : '0'); } catch (e) { /* ignoré */ }
+    if (!on) { motor(false); }
+    var btns = document.querySelectorAll('.sound-btn');
+    for (var i = 0; i < btns.length; i++) { drawSonBtn(btns[i]); }
+    if (on) { sfx('ok'); }
+  }
+  function drawSonBtn(b) {
+    b.textContent = sonOn ? '🔊' : '🔇';
+    b.setAttribute('aria-pressed', sonOn ? 'true' : 'false');
+    b.setAttribute('aria-label', sonOn ? 'Couper le son' : 'Activer le son');
+    b.title = sonOn ? 'Couper le son' : 'Activer le son';
+  }
+  function buildSonButtons() {
+    var stars = document.querySelectorAll('[data-tn-stars]');
+    for (var i = 0; i < stars.length; i++) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sound-btn';
+      b.addEventListener('click', function (e) { e.stopPropagation(); setSon(!sonOn); });
+      drawSonBtn(b);
+      var wrap = document.createElement('div');
+      wrap.className = 'top-right';
+      stars[i].parentNode.insertBefore(wrap, stars[i]);
+      wrap.appendChild(b);
+      wrap.appendChild(stars[i]);
+    }
+  }
+  /* Petit clic discret sur les boutons, et cliquetis sur les curseurs. */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    while (t && t !== document && !(t.tagName === 'BUTTON' || t.tagName === 'A')) { t = t.parentNode; }
+    if (t && t !== document && !t.disabled && !(t.classList && t.classList.contains('sound-btn'))) { sfx('tap'); }
+  }, true);
+  document.addEventListener('input', function (e) { if (e.target && e.target.type === 'range') { sfx('tick'); } }, true);
+
   /* ---------- Navigation commune ---------- */
   var DOCK = [
     ['index.html', '🏙️', 'Cité'],
@@ -274,9 +413,10 @@
     exportText: exportText, importText: importText, reset: reset,
     $: $, el: el, clear: clear, shuffle: shuffle, param: param, parseNumber: parseNumber,
     starsText: starsText, download: download, dialog: dialog, choisirNiveau: choisirNiveau,
-    refreshStars: refreshStars
+    refreshStars: refreshStars,
+    sfx: sfx, motor: motor, setSon: setSon, sonActif: function () { return sonOn; }
   };
 
-  function init() { buildDock(); refreshStars(); }
+  function init() { buildDock(); buildSonButtons(); refreshStars(); }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
 })();
